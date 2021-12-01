@@ -1,0 +1,29 @@
+specVersion: 0.0.2
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: SquidGame
+    network: bsc
+    source:
+      address: "0x0000000000000000000000000000000000000000"
+      abi: SquidGame
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - BetPlaced
+        - BetResolved
+        - RewardDistribuited
+      abis:
+        - name: SquidGame
+          file: SquidGame/abis/SquidGame.json
+      eventHandlers:
+        - event: BetPlaced(indexed bytes32,indexed address,uint256,uint8)
+          handler: handleBetPlaced
+        - event: BetResolved(indexed bytes32,uint8)
+          handler: handleBetResolved
+        - event: RewardDistribuited(indexed address,uint256)
+          handler: handleRewardDistribuited
+      file: SquidGame/SquidGame.wasm

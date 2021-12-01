@@ -1,0 +1,22 @@
+enum BetOutcome {
+  PENDING
+  NONE
+  EVEN
+  ODD
+}
+
+type Bet @entity {
+  id: ID!
+  betId: Bytes!
+  player: Player!
+  bet: BetOutcome!
+  result: BetOutcome!
+  amount: BigInt!
+}
+
+type Player @entity {
+  id: ID!
+  address: Bytes! # address
+  score: BigInt # bnbAmount
+  rewardClaimed: BigInt
+}
